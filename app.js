@@ -14,5 +14,13 @@
 //     }
 // }, 2000)
 
-console.log(__dirname)
-console.log(__filename)
+// console.log(__dirname)
+// console.log(__filename)
+
+const greet = (name) => {
+    console.log(`Hello, ${name}!`)
+}
+
+greet('Mario');
+greet('Yoshi')
+
