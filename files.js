@@ -1,6 +1,7 @@
 const fs = require('fs');
 
-reading files
+// reading files
+
 fs.readFile('./docs/blog1.txt', (err, data) => {
     if (err) {
         console.log(error);
