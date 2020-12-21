@@ -10,6 +10,6 @@ app.listen(3000)
 
 app.get('/', (req, res) => {
 
-    res.send('<p>home page</p>');
+    res.send('<p>home page!</p>');
 
 });
