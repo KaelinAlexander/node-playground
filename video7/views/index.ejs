@@ -2,12 +2,14 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
+        <title>Test Blog | <%= title %></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="">
     </head>
     <body>
+
+        <% const name = 'mario' %>
 
     <nav>
         <div class="site-title">
@@ -24,6 +26,14 @@
     <div class="blogs content">
         <h2>All Blogs</h2>
 
+        <% if (blogs.length > 0) { %>
+            <% blogs.forEach(blog => { %>
+                <h3 class="title"><%= blog.title %></h3>
+                <p class="snippet"><%= blog.snippet %></p>
+            <% }) %>
+        <% } else { %>
+            <p>There are no blogs to display.</p>
+        <% } %>
     </div>
 
     </body>
