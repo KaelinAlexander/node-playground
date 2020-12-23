@@ -1,14 +1,9 @@
 const express = require('express')
 const morgan = require('morgan')
 
-
 // express app
 
 const app = express();
-
-// connect to mongodb
-
-const dbURI = 'mongodb+srv://kaelintest:password@cluster0.m1lko.mongodb.net/<dbname>?retryWrites=true&w=majority'
 
 // register view engine; requires app having been made with express
 
