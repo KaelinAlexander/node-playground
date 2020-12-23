@@ -1,6 +1,7 @@
 const express = require('express')
 const morgan = require('morgan')
 const mongoose = require('mongoose')
+const Blog = require('./models/blog')
 
 // express app
 
@@ -15,15 +16,49 @@ mongoose.connect(dbURI, { useNewUrlParser: true,  useUnifiedTopology: true })
 
 // register view engine; requires app having been made with express
 
-app.set('view engine', 'ejs')
-// app.set('views', 'myviews')
+app.set('view engine', 'ejs');
 
 // middleware & static files
-
-app.use(express.static('public'))
-
+app.use(express.static('public'));
 app.use(morgan('dev'));
 
+// mongoose and mongo sandbox routes
+app.get('/add-blog', (req, res) => {
+    const blog = new Blog({
+        title: 'New Blog',
+        snippet: 'About my new blog...',
+        body: 'More about my new blog'
+    });
+    blog.save()
+    .then((result) => {
+        res.send(result)
+    })
+    .catch((err) => {
+        console.log(err);
+    });
+})
+
+app.get('/all-blogs', (req, res) => {
+    Blog.find()
+    .then((result) => {
+        res.send(result)
+    })
+    .catch((err) => {
+        console.log(err);
+    })
+})
+
+app.get('/single-blog', (req, res) => {
+    Blog.findById('5fe3844591f588056dc9c20a')
+    .then((result) => {
+        res.send(result)
+    })
+    .catch((err) => {
+        console.log(err);
+    })
+})
+
+// routes
 app.get('/', (req, res) => {
     const blogs = [
         {title: 'Some Pokemon Content', snippet: 'Pokem ipsum dolor sit amet Zekrom Burmy Mareep Rotom Probopass Amoonguss. Ut enim ad minim veniam Red Hydreigon Feraligatr Rotom Sneasel Shaymin. Normal Butterfree Seel Celadon City Torchic Nidoran Feraligatr. Silver Flaaffy Marill Cherrim Duosion Taillow Staryu. Pallet Town Cryogonal Voltorb Lucario Yellow Drifloon Haxorus.'},
