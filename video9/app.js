@@ -60,18 +60,25 @@ app.get('/single-blog', (req, res) => {
 
 // routes
 app.get('/', (req, res) => {
-    const blogs = [
-        {title: 'Some Pokemon Content', snippet: 'Pokem ipsum dolor sit amet Zekrom Burmy Mareep Rotom Probopass Amoonguss. Ut enim ad minim veniam Red Hydreigon Feraligatr Rotom Sneasel Shaymin. Normal Butterfree Seel Celadon City Torchic Nidoran Feraligatr. Silver Flaaffy Marill Cherrim Duosion Taillow Staryu. Pallet Town Cryogonal Voltorb Lucario Yellow Drifloon Haxorus.'},
-        {title: 'Some other Pokemon Content', snippet: 'Pokem ipsum dolor sit amet Zekrom Burmy Mareep Rotom Probopass Amoonguss. Ut enim ad minim veniam Red Hydreigon Feraligatr Rotom Sneasel Shaymin. Normal Butterfree Seel Celadon City Torchic Nidoran Feraligatr. Silver Flaaffy Marill Cherrim Duosion Taillow Staryu. Pallet Town Cryogonal Voltorb Lucario Yellow Drifloon Haxorus.'},
-        {title: 'Yet more Pokemon Content', snippet: 'Pokem ipsum dolor sit amet Zekrom Burmy Mareep Rotom Probopass Amoonguss. Ut enim ad minim veniam Red Hydreigon Feraligatr Rotom Sneasel Shaymin. Normal Butterfree Seel Celadon City Torchic Nidoran Feraligatr. Silver Flaaffy Marill Cherrim Duosion Taillow Staryu. Pallet Town Cryogonal Voltorb Lucario Yellow Drifloon Haxorus.'}
-    ];
-    res.render('index', { title: 'Home', blogs });
+    res.redirect('/blogs')
 });
 
 app.get('/about', (req, res) => {
     // res.send('<p>about page!</p>');
     res.render('about', { title: 'About' });
 });
+
+// blog routes
+
+app.get('/blogs', (req, res) => {
+    Blog.find().sort( { createdAt: -1})
+    .then((result) => {
+        res.render('index', {title: 'All Blogs', blogs: result})
+    })
+    .catch((err) => {
+        console.log(err);
+    })
+})
 
 app.get('/blogs/create', (req, res) => {
     res.render('create', { title: 'Create' });
